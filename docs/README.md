@@ -8,7 +8,7 @@
 | Matrícula | Aluno |
 | -- | -- |
 | 22/2015060 | Ana Luiza Pfeilsticker |
-| 22/2006211 | Vitor Valério Hoffmann |
+| 22/2006211 | Vitor Valerio Hoffmann |
 | 22/2021998 | Mateus Magno |
 | 23/1011462 | Heloisa Silva |
 | 22/2006552 | Antonio Carvalho |
