@@ -82,3 +82,4 @@ Cada membro deve preencher o seu quadro antes de iniciar o desenho do esboço fi
 | :----- | :--------- | :--------------------------------------------- | :------------------------------------ | :------ |
 | 1.0    | 01/04/2026 | Criação do documento e adição da estrutura base | [Ana Luiza](https://github.com/ana-pfeilsticker) |         |
 | 1.1    | 01/04/2026 | Inclusão dos templates 5W2H, justificativa e preenchimento do 5w2h individual    | [Ana Luiza](https://github.com/ana-pfeilsticker)                           |         |
+| 1.2    | 01/04/2026 | Preenchimento do 5w2h individual    | [Antonio Carvalho](https://github.com/antonioscarvalho)                           |         |
