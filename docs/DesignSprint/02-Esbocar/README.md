@@ -102,6 +102,22 @@ Cada membro deve preencher o seu quadro antes de iniciar o desenho do esboço fi
 | **How?** (Como será realizado?) | Utilizando **metodologias ágeis (Scrum e Kanban)** e modelagem BPMN. A stack tecnológica conta com **React** no front-end e **Node.js com NestJS** no back-end, estruturados em uma arquitetura em camadas. |
 | **How Much?** (Quanto custará?) | **Custo zero**, devido ao cunho estritamente acadêmico do projeto. O investimento principal consiste nas horas de dedicação técnica da equipe para o cumprimento dos requisitos da disciplina. |
 
+---
+
+### 👤 Integrante: Heloisa Silva
+
+| Pergunta                             | Resposta                                                                                                                                                                                                                                                                                                                              |
+| :----------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **What?** (O que será feito?)        | A equipe desenvolverá um sistema web em formato de Blog para conectar amantes de trilhas e natureza que tenham interesse em conhecer belezas naturais em suas redondezas ou em novos lugares. |
+| **Why?** (Por que será feito?)       |	O objetivo é disponibilizar uma plataforma que conecte pessoas que se conheçam trilhas e ofereçam caravanas e excursões para conhecer os locais compartilhados dentro de sistema.                 |
+| **Where?** (Onde será implementado?) |  O projeto será desenvolvido em ambiente web com acessibilidade possível em aparelhos desktop e dispositivos móveis                                                                                    |
+| **When?** (Quando será executado?)   |O projeto será realizado durante o semestre pela disciplina de arquitetura de software do curso de engenharia de software da Universidade de Brasília, sendo o final previsto para 29/06                                                                                         |
+| **Who?** (Quem será o responsável?)  | A equipe será responsável pela realização. do projeto que tem como público alvo amantes de trilha e natureza que tenham vontade de conhecer belezas naturais                                                                                         |
+| **How?** (Como será realizado?)      | A equipe decidiu utilizar o Scrum, combinado com Kanban. Será utilizado para o desenvolvimento REACT para o frontend    e NESTJS para o backend             |
+| **How Much?** (Quanto custará?)      | Considerando o salário médio de um profissional Junior como 2600 mensais e que o projeto custará por volta de 60 horas trabalhadas, o custo sairia por volta de 7818 reais                                                                                            |
+
+---
+
 ## Entregáveis esperados
 
 - Conjunto de esboços de solução.
@@ -117,3 +133,4 @@ Cada membro deve preencher o seu quadro antes de iniciar o desenho do esboço fi
 | 1.3    | 01/04/2026 | Preenchimento do 5w2h individual                                              | [Miguel Arthur](https://github.com/zlimaz)              |         |
 | 1.4    | 01/04/2026 | Preenchimento do 5w2h individual                                              | [Vitor Hoffmann](https://github.com/vitor-hoffmann)     |         |
 | 1.5    | 01/04/2026 | Preenchimento do 5w2h individual                                              | [Paulo Filho](https://github.com/PauloFilho2)       |         |
+| 1.6    | 01/04/2026 | Preenchimento do 5w2h individual                                              | [Heloisa Silva](https://github.com/Heloisa-Santos)       |         |
