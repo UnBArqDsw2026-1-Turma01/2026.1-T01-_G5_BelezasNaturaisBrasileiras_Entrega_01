@@ -329,27 +329,13 @@ Este comando sobe automaticamente o PostgreSQL, o backend e o frontend em contê
 </details>
  
 ---
- 
-## Iniciativas Extras
- 
-As contribuições a seguir foram desenvolvidas além do escopo mínimo exigido para a Entrega 1, demonstrando comprometimento da equipe com a qualidade técnica e metodológica do projeto:
- 
-| Iniciativa | Descrição | Impacto |
-|---|---|---|
-| **Protótipo de Alta Fidelidade** | Além do protótipo de média fidelidade exigido, a equipe produziu telas navegáveis no Figma com design system completo | Reduz ambiguidade na fase de implementação |
-| **Modelagem RBAC** | Diagrama detalhado do controle de acesso baseado em papéis com matriz de permissões por endpoint | Antecipa decisões de segurança para a fase de desenvolvimento |
-| **Glossário de Termos** | Documento padronizando a linguagem ubíqua do domínio (trilha, ponto turístico, organizador, check-in etc.) | Alinha comunicação entre todos os stakeholders |
-| **Backlog Priorizado** | Épicos e User Stories detalhadas com critérios de aceitação, priorizados por valor de negócio (MoSCoW) | Facilita o planejamento das próximas entregas |
-| **BPMN de Duplo Fluxo** | Modelagem de dois processos distintos (agendamento e moderação) ao invés de apenas um | Cobertura mais ampla dos fluxos críticos do sistema |
- 
----
- 
-## Histórico de Versões
- 
-| Versão | Data | Descrição | Autor | Revisor(es) |
-|---|---|---|---|---|
-| 1.0 | 31/03/2026 | Criação da Home — Entrega 1 | Antonio | Mário |
-| 1.1 | 03/04/2026 | Refatoração completa do README com seções de requisitos, BPMN, guia de execução e iniciativas extras | — | — |
+
+## Planilha de Versionamento
+
+| Versão | Data       | Descrição                                   | Autor                                               | Revisor                                                 |
+| :----- | :--------- | :------------------------------------------ | :-------------------------------------------------- | :------------------------------------------------------ |
+| 1.0 | 31/03/2026 | Criação da Home — Entrega 1 | [Antonio Carvalho](https://github.com/antonioscarvalho) |  |
+| 1.1 | 03/04/2026 | Refatoração completa do README com Arquitetura e Design, seções de requisitos, BPMN e guia de execução |  [Antonio Carvalho](https://github.com/antonioscarvalho)  | |
  
 ---
  
