@@ -224,12 +224,6 @@ A arquitetura da plataforma adota o padrão **cliente-servidor com separação e
  
 > **RN07 — Preservação de Dados em Trilhas Deletadas:** A exclusão de uma trilha não afeta badges e comentários já atrelados ao perfil do organizador, que são preservados permanentemente.
  
-### Controle de Acesso (RBAC)
- 
-O controle de acesso é baseado em **papéis hierárquicos** implementados via Guards do NestJS. Cada endpoint da API declara explicitamente os papéis autorizados, sendo o token JWT validado e o perfil extraído em cada requisição.
- 
----
- 
 ## Como Rodar o Projeto
  
 > **Há algo a ser executado:** SIM
