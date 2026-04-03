@@ -1,7 +1,7 @@
 # Plataforma de Belezas Naturais e Trilhas
 
 <p align="center">
-  <img src="docs/assets/fase_1/images/Image_3zdyl93zdyl93zdy.png" alt="Logo da Plataforma de Belezas Naturais e Trilhas" width="400"/>
+  <img src="/docs/assets/fase_1/images/Image_3zdyl93zdyl93zdy.png" alt="Logo da Plataforma de Belezas Naturais e Trilhas" width="400"/>
 </p>
 
 ---
