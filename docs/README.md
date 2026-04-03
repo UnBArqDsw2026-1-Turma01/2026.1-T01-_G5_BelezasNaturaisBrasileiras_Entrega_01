@@ -78,8 +78,6 @@ Aqui está a tabela de equipe atualizada, incluindo o **Paulo Filho** e todos os
 | 22/2006211 | Vitor Valerio Hoffmann | [vitor-hoffmann](https://github.com/vitor-hoffmann) |
 
 ---
-
----
  
 ## Base do Projeto — Design Sprint
  

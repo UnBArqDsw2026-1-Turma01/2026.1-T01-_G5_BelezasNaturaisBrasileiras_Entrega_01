@@ -21,6 +21,6 @@ Verificar se a proposta atende as necessidades do usuario e identificar melhoria
 
 ## Planilha de versionamento
 
-| Versao | Data       | Descricao                                      | Autor                                 | Revisor |
-| ------ | ---------- | ---------------------------------------------- | ------------------------------------- | ------- |
-| 1.0    | 01/04/2026 | Criacao do documento e adicao da estrutura base | [Ana Luiza](https://github.com/ana-pfeilsticker) |         |
+| Versao | Data       | Descricao                                       | Autor                                            | Revisor                                             |
+| ------ | ---------- | ----------------------------------------------- | ------------------------------------------------ | --------------------------------------------------- |
+| 1.0    | 01/04/2026 | Criacao do documento e adicao da estrutura base | [Ana Luiza](https://github.com/ana-pfeilsticker) | [Vitor Hoffmann](https://github.com/vitor-hoffmann) |
