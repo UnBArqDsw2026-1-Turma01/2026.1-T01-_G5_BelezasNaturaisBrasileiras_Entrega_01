@@ -130,6 +130,22 @@ Cada membro deve preencher o seu quadro antes de iniciar o desenho do esboço fi
 | **How?** (Como será realizado?) | Utilizando **NestJS** para a arquitetura do backend e **PostgreSQL** para persistência de dados transacionais. A interface será construída em **React com TypeScript**, garantindo a integridade do fluxo de validação de códigos. |
 | **How Much?** (Quanto vai custar?) | Investimento estimado em **80 horas técnicas** de desenvolvimento especializado. Custos de infraestrutura nulos pelo uso de tecnologias open-source e custos de hospedagem oferecidos voluntariamente por um membro da equipe. |
 
+---
+
+### 👤 Integrante: Mário Vinicius
+
+| Pergunta                           | Resposta     |
+| :--------------------------------- | :----------- |
+| **What?** (O que será feito?)      | **O Produto:** Desenvolvimento de uma plataforma digital híbrida que atua simultaneamente como um Blog Colaborativo e um Catálogo de Trilhas e Ecoturismo. **Diferenciais:** Contará com um sistema de gamificação (medalhas) e controle de vagas para expedições. |
+| **Why?** (Por que será feito?)     | **O Propósito:** Dar visibilidade a belezas naturais e rotas isoladas do Brasil. **O Problema:** Resolver a descentralização de informações (como ocorre em sites de mapas confusos) e democratizar o acesso ao ecoturismo. **A Solução:** Conectar diretamente os turistas a guias locais capacitados, eliminando a dependência de agências com alto custo.|
+| **Where?** (Onde será feito?)      | **Ambiente de Uso:** A plataforma será disponibilizada em ambiente Web/Mobile para acesso remoto por turistas e guias. **Ambiente de Desenvolvimento:** Repositório no GitHub (`UnBArqDsw2026-1-Turma01/2026.1-T01-_G5_BelezasNaturaisBrasileiras_Entrega_01`) e ambientes de desenvolvimento local da equipe.|
+| **When?** (Quando será feito?)     | **Prazo de Execução:** Durante o semestre letivo de 2026.1 da disciplina de Arquitetura e Desenho de Software. **Marco Atual:** O escopo inicial e o planejamento base (Módulo Base) têm entrega fixada para o dia 06/04/2026. |
+| **Who?** (Quem são os envolvidos?) | **Equipe de Desenvolvimento:** Grupo 5, composto por 10 alunos de Engenharia de Software da UnB. **Atores do Sistema:** Administrador, Usuário Visitante/Turista, Guia Local/Mestre de Caravana |
+| **How?** (Como será realizado?)    | **Metodologia de Design:** O planejamento seguirá as 5 etapas da Design Sprint adaptada para a disciplina (Unpack, Sketch, Decide, Prototype, Validate). **Modelagem:** A arquitetura e os processos do sistema utilizarão metodologias ágeis (com processos modelados em notação BPMN). **Stack Tecnológica:** O desenvolvimento técnico será feito utilizando **NestJS** no back-end e **React** no front-end.|
+| **How Much?** (Quanto vai custar?) | **Fase Acadêmica:** O custo principal é medido em esforço humano (horas de estudo, reuniões, design e codificação dos 10 integrantes do grupo). **Ferramentas:** Uso de licenças educacionais e camadas gratuitas (Figma, GitHub, Trello/Jira, Docsify). **Fase de Produção (Futuro):** Custos operacionais de infraestrutura em nuvem (servidores AWS/GCP, hospedagem de banco de dados) e registro de domínio. |
+
+---
+
 ## Entregáveis esperados
 
 - Conjunto de esboços de solução.
@@ -147,3 +163,5 @@ Cada membro deve preencher o seu quadro antes de iniciar o desenho do esboço fi
 | 1.5    | 01/04/2026 | Preenchimento do 5w2h individual                                              | [Paulo Filho](https://github.com/PauloFilho2)       |         |
 | 1.6    | 01/04/2026 | Preenchimento do 5w2h individual                                              | [Heloisa Silva](https://github.com/Heloisa-Santos)       |         |
 | 1.7   | 01/04/2026 | Preenchimento do 5w2h individual                                              | [Mateus Magno](https://github.com/mtsmgn0)       |         |
+| 1.7   | 02/04/2026 | Preenchimento do 5w2h individual                                              | [Mário Vinícius](https://github.com/MarioViniciusBC)       |         |
+
