@@ -157,6 +157,20 @@ Cada membro deve preencher o seu quadro antes de iniciar o desenho do esboço fi
 
 ---
 
+### 👤 Integrante: Breno Alexandre
+
+| Pergunta                           | Resposta                                                                                                                                                                                                                                              |
+| :--------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **What?** (O que será feito?)      | Desenvolvimento de um site/plataforma para mapeamento de trilhas e pontos turísticos, com criação de encontros e avaliações das localizações. |
+| **Why?** (Por que será feito?)     | Centralizar informações de trilhas, facilitar a organização de encontros com guias e permitir feedback dos usuários sobre os locais. |
+| **Where?** (Onde será feito?)      | Aplicação web desenvolvida no repositório do projeto da disciplina (GitHub), acessível via navegador. |
+| **When?** (Quando será feito?)     | Durante o período da disciplina, com entregas ao longo do semestre. |
+| **Who?** (Quem são os envolvidos?) | Integrantes do Grupo 5, responsáveis pelo desenvolvimento do sistema. |
+| **How?** (Como será realizado?)    | Utilizando tecnologias web para criação de uma plataforma com cadastro de trilhas, organização de encontros e sistema de avaliações. |
+| **How Much?** (Quanto vai custar?) | Sem custos financeiros diretos, utilizando ferramentas gratuitas; principal investimento será o tempo da equipe. |
+
+---
+
 ## Entregáveis esperados
 
 - Conjunto de esboços de solução.
@@ -177,3 +191,4 @@ Cada membro deve preencher o seu quadro antes de iniciar o desenho do esboço fi
 | 1.8    | 02/04/2026 | Preenchimento do 5w2h individual                                              | [Mário Vinícius](https://github.com/MarioViniciusBC)    | [Mateus Magno](https://github.com/mtsmgn0)              |
 | 1.9    | 01/04/2026 | Inclusão do mapa mental preliminar desenvolvido em sala                       | [Mateus Magno](https://github.com/mtsmgn0)              | [Vitor Hoffmann](https://github.com/vitor-hoffmann)     |
 | 1.10   | 03/04/2026 | Arrumar formatação e correção gramatical                                      | [Vitor Hoffmann](https://github.com/vitor-hoffmann)     | [Ana Pfeilsticker](https://github.com/ana-pfeilsticker) |
+| 1.11   | 05/04/2026 | Preenchimento do 5w2h individual                                              | [Breno Alexandre](https://github.com/brenoalexandre0)     | [Mateus Magno](https://github.com/mtsmgn0) |
