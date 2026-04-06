@@ -11,6 +11,7 @@
     - [05. Testar](DesignSprint/05-Testar/README.md)
   - [1.2. Artefato Generalista](Base/1.2.ArtefatoGeneralista.md)
     - [01. Glossário](ArtefatoGeneralista/01-glossario.md)
+    - [02. Plano de Risco, Custo e Tempo](ArtefatoGeneralista/02-PRCT.md)
   - [1.3. Modelagem BPMN](Base/1.3.ModelagemBPMN.md)
   - [1.4. Participações](Base/1.4.ParticipacoesBase.md)
   - [1.5. Iniciativas Extras](Base/1.5.IniciativasExtras.md)
