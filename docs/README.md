@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="/2026.1-T01-_G5_BelezasNaturaisBrasileiras_Entrega_01/docs/assets/images/as_comp_cor.jpg" alt="UnB Logo" width="400"/>
+<img src="assets/images/as_comp_cor.jpg" alt="UnB Logo" width="400"/>
 
 # 🌿 Plataforma de Belezas Naturais e Trilhas
 
@@ -27,15 +27,15 @@
 
 ## Índice
 
-1. [Sobre o Projeto](#-sobre-o-projeto)
-2. [Equipe](#-equipe)
-3. [Base do Projeto — Design Sprint](#-base-do-projeto--design-sprint)
-4. [Processos e Modelagem — BPMN](#-processos-e-modelagem--bpmn)
-5. [Engenharia de Requisitos](#-engenharia-de-requisitos)
-6. [Arquitetura e Design](#-arquitetura-e-design)
-7. [Como Rodar o Projeto](#-como-rodar-o-projeto)
-8. [Iniciativas Extras](#-iniciativas-extras)
-9. [Histórico de Versões](#-histórico-de-versões)
+1. [Sobre o Projeto](#sobre-o-projeto)
+2. [Equipe](#equipe)
+3. [Base do Projeto — Design Sprint](#base-do-projeto---design-sprint)
+4. [Processos e Modelagem — BPMN](#processos-e-modelagem---bpmn)
+5. [Engenharia de Requisitos](#engenharia-de-requisitos)
+6. [Arquitetura e Design](#arquitetura-e-design)
+7. [Como Rodar o Projeto](#como-rodar-o-projeto)
+8. [Iniciativas Extras](#iniciativas-extras)
+9. [Histórico de Versões](#histórico-de-versões)
 
 ---
 
@@ -62,8 +62,6 @@ A solução conecta quatro perfis de usuário em uma arquitetura de acessos grad
 Aqui está a tabela de equipe atualizada, incluindo o **Paulo Filho** e todos os links diretos para os perfis do GitHub:
 
 ---
-
-## Equipe
 
 | Matrícula | Aluno | GitHub |
 | :--- | :--- | :--- |
@@ -328,8 +326,9 @@ Este comando sobe automaticamente o PostgreSQL, o backend e o frontend em contê
 
 | Versão | Data       | Descrição                                   | Autor                                               | Revisor                                                 |
 | :----- | :--------- | :------------------------------------------ | :-------------------------------------------------- | :------------------------------------------------------ |
-| 1.0 | 31/03/2026 | Criação da Home — Entrega 1 | [Antonio Carvalho](https://github.com/antonioscarvalho) |  |
-| 1.1 | 03/04/2026 | Refatoração completa do README com Arquitetura e Design, seções de requisitos, BPMN e guia de execução |  [Antonio Carvalho](https://github.com/antonioscarvalho)  | |
+| 1.0 | 31/03/2026 | Criação da Home — Entrega 1 | [Antonio Carvalho](https://github.com/antonioscarvalho) | [Mário Vinícius](https://github.com/MarioViniciusBC) |
+| 1.1 | 03/04/2026 | Refatoração completa do README com Arquitetura e Design, seções de requisitos, BPMN e guia de execução |  [Antonio Carvalho](https://github.com/antonioscarvalho)  | [Mário Vinícius](https://github.com/MarioViniciusBC) |
+| 1.2 | 19/04/2026 | Correção de links internos do índice e ajuste no path de assets (imagens) |   [Mário Vinícius](https://github.com/MarioViniciusBC) |  |
  
 ---
  
