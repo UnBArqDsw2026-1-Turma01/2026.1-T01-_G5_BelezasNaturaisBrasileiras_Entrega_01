@@ -12,3 +12,6 @@ dist/
 # Prisma
 prisma/migrations/dev.db
 prisma/migrations/dev.db-journal
+
+/src/generated/prisma
+generated/

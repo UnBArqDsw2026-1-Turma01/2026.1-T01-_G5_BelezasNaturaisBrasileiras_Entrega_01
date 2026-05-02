@@ -4,6 +4,15 @@
 - **Prisma como Detalhe:** O banco de dados é um detalhe de infraestrutura. Nenhuma camada acima de `Infrastructure` deve saber da existência do Prisma ou do modelo de dados do banco.
 - **Single Source of Truth:** O `schema.prisma` deve refletir as necessidades das entidades de domínio, e não o contrário.
 
+## Autenticação & Supabase
+- **Provedor de Auth:** Utilizamos **Supabase Auth** (gerenciado) para autenticação de usuários.
+- **Relação com Prisma:** O `Usuario.supabaseId` (UUID) é a única FK que conecta Supabase Auth com Prisma.
+- **Fluxo:**
+  1. Supabase Auth gerencia: login, MFA, password reset, social providers
+  2. Prisma armazena: dados do usuário (nome, whatsApp, tipo/RBAC, timestamps)
+  3. Após autenticação Supabase, sincronizar dados locais via `supabaseId`
+- **Regra:** Nunca armazene senhas em Prisma. Supabase é a única fonte de verdade para credenciais.
+
 ## Regras de Implementação
 1. **Mappers Obrigatórios**:
    - Todo repositório deve converter `Prisma Models` para `Domain Entities` antes de retorná-los.
