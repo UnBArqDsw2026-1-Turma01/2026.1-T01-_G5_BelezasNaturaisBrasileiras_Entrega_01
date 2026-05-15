@@ -8,6 +8,7 @@ import { AccountsModule } from './modules/accounts/accounts.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: '.env.local',
     }),
     AccountsModule,
   ],

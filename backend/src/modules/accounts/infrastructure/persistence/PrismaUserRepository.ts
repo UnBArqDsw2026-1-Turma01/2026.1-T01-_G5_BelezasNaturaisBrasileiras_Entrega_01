@@ -3,7 +3,7 @@ import { IUserRepository } from '../../domain/interfaces/IUserRepository';
 import { User } from '../../domain/entities/User';
 import { PrismaService } from '../../../../shared/infrastructure/prisma/prisma.service';
 import { UserMapper } from '../mappers/UserMapper';
-import { Prisma } from '@src/generated/prisma';
+import { Prisma } from '@src/generated/prisma/client';
 
 @Injectable()
 export class PrismaUserRepository implements IUserRepository {
@@ -33,19 +33,17 @@ export class PrismaUserRepository implements IUserRepository {
   }
 
   async update(user: User): Promise<User> {
-  return this.prisma.user.update({
-    where: {
-      id: user.id,
-    },
-
-    data: {
-      role: user.role,
-      nome: user.nome,
-      fotoPerfil: user.fotoPerfil,
-      updatedAt: user.updatedAt,
-    },
-  });
-}
+    const raw = await this.prisma.user.update({
+      where: { id: user.id },
+      data: {
+        role: user.role,
+        nome: user.nome,
+        fotoPerfil: user.fotoPerfil,
+        updatedAt: user.updatedAt,
+      },
+    });
+    return UserMapper.toDomain(raw);
+  }
 
   async findByEmail(email: string): Promise<User | null> {
     try {

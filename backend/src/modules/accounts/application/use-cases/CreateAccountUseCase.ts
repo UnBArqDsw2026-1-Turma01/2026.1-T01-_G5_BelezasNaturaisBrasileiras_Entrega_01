@@ -35,7 +35,7 @@ export class CreateAccountUseCase {
     const user = factory.create(supabaseUser.uid, input.email, input.nome);
 
     try {
-      const savedUser = await this.userRepository.save(user);
+      const savedUser = await this.userRepository.create(user);
       return UserMapper.toPersistence(savedUser);
     } catch (error) {
       try {

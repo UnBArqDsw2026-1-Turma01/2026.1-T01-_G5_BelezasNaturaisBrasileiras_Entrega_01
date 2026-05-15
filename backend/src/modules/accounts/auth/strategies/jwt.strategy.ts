@@ -8,12 +8,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.JWT_SECRET,
+      secretOrKey: process.env.JWT_SECRET ?? '',
     });
   }
 
-  // Garante que o user está no request, funcionando no RolesGuard
-  async validate(payload: any) {
+  validate(payload: any) {
     return {
       userId: payload.sub,
       email: payload.email,
