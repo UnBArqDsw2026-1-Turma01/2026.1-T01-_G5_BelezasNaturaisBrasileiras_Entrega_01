@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
 import type { IUserRepository } from '../../domain/interfaces/IUserRepository';
-import type { ISupabaseAuthService } from '../../domain/interfaces/ISupabaseAuthService';
+import type { IAuthFacade } from '../../domain/interfaces/IAuthFacade';
 import type { IUserFactoryRegistry } from '../../domain/interfaces/IUserFactoryRegistry';
 import { CreateAccountInput } from '../dtos/CreateAccountInput';
 import { CreateAccountOutput } from '../dtos/CreateAccountOutput';
@@ -12,41 +12,40 @@ export class CreateAccountUseCase {
   constructor(
     @Inject('IUserRepository')
     private userRepository: IUserRepository,
-    @Inject('ISupabaseAuthService')
-    private supabaseAuthService: ISupabaseAuthService,
+    @Inject('IAuthFacade')
+    private authFacade: IAuthFacade,
     @Inject('IUserFactoryRegistry')
     private userFactoryRegistry: IUserFactoryRegistry,
   ) {}
 
   async execute(input: CreateAccountInput): Promise<CreateAccountOutput> {
-    let supabaseUser: { uid: string };
+    let uid: string;
+
     try {
-      supabaseUser = await this.supabaseAuthService.createUser(
-        input.email,
-        input.password,
-      );
+      const result = await this.authFacade.registerUser(input.email, input.password);
+      uid = result.uid;
     } catch (error) {
       throw new Error(
-        `Falha ao criar usuário no Supabase: ${error instanceof Error ? error.message : String(error)}`,
+        `Falha ao registrar no Supabase: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
 
     const factory = this.userFactoryRegistry.get(UserRole.COMMON_USER);
-    const user = factory.create(supabaseUser.uid, input.email, input.nome);
+    const user = factory.create(uid, input.email, input.nome);
 
     try {
       const savedUser = await this.userRepository.create(user);
       return UserMapper.toPersistence(savedUser);
     } catch (error) {
       try {
-        await this.supabaseAuthService.deleteUser(supabaseUser.uid);
+        await this.authFacade.removeUser(uid);
       } catch (rollbackError) {
         console.error(
-          `Erro ao fazer rollback no Supabase: ${rollbackError instanceof Error ? rollbackError.message : String(rollbackError)}`,
+          `Rollback falhou: ${rollbackError instanceof Error ? rollbackError.message : String(rollbackError)}`,
         );
       }
       throw new Error(
-        `Falha ao salvar usuário no banco de dados: ${error instanceof Error ? error.message : String(error)}`,
+        `Falha ao salvar no banco: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
   }

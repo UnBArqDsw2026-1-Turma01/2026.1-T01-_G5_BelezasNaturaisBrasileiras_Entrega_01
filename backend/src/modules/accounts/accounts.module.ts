@@ -4,9 +4,8 @@ import { AccountController } from './interface/controllers/AccountController';
 import { CreateAccountUseCase } from './application/use-cases/CreateAccountUseCase';
 import { PromoteUserUseCase } from './application/use-cases/PromoteUserUseCase';
 import { PrismaUserRepository } from './infrastructure/persistence/PrismaUserRepository';
-import { SupabaseAuthService } from './infrastructure/services/SupabaseAuthService';
+import { SupabaseAuthFacade } from './infrastructure/facades/SupabaseAuthFacade';
 import { userFactoryProviders } from './interface/providers/UserFactoryProvider';
-import { supabaseProvider } from '../../shared/infrastructure/supabase/supabase.provider';
 import { PrismaService } from '../../shared/infrastructure/prisma/prisma.service';
 import { JwtStrategy } from './auth/strategies/jwt.strategy';
 
@@ -16,7 +15,6 @@ import { JwtStrategy } from './auth/strategies/jwt.strategy';
   providers: [
     PrismaService,
     JwtStrategy,
-    supabaseProvider,
     CreateAccountUseCase,
     PromoteUserUseCase,
     {
@@ -24,8 +22,8 @@ import { JwtStrategy } from './auth/strategies/jwt.strategy';
       useClass: PrismaUserRepository,
     },
     {
-      provide: 'ISupabaseAuthService',
-      useClass: SupabaseAuthService,
+      provide: 'IAuthFacade',
+      useClass: SupabaseAuthFacade,
     },
     ...userFactoryProviders,
   ],
