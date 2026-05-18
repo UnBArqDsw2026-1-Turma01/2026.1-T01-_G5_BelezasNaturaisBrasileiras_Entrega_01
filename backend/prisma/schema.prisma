@@ -13,13 +13,66 @@ datasource db {
 }
 
 model User {
-  id        String    @id
-  email     String    @unique
-  nome      String
-  role      String    @default("COMMON_USER")
+  id         String      @id
+  email      String      @unique
+  nome       String
+  role       String      @default("COMMON_USER")
   fotoPerfil String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  trilhas    Trilha[]
+  inscricoes Inscricao[]
+  badges     Badge[]
 
   @@map("users")
+}
+
+model Trilha {
+  id            String      @id @default(uuid())
+  titulo        String
+  descricao     String
+  organizadorId String
+  pontoEncontro String
+  dataInicio    DateTime
+  vagasMaximas  Int
+  status        String      @default("ATIVA")
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  organizador   User        @relation(fields: [organizadorId], references: [id])
+  inscricoes    Inscricao[]
+  badges        Badge[]
+
+  @@map("trilhas")
+}
+
+model Inscricao {
+  id                 String    @id @default(uuid())
+  trilhaId           String
+  usuarioId          String
+  status             String    @default("PENDENTE")
+  codigoConfirmacao  String?   @unique
+  solicitadoEm       DateTime  @default(now())
+  aceitoEm           DateTime?
+  checkinEm          DateTime?
+
+  trilha             Trilha    @relation(fields: [trilhaId], references: [id])
+  usuario            User      @relation(fields: [usuarioId], references: [id])
+
+  @@unique([trilhaId, usuarioId])
+  @@map("inscricoes")
+}
+
+model Badge {
+  id             String   @id @default(uuid())
+  participanteId String
+  trilhaId       String
+  conquistadoEm  DateTime @default(now())
+
+  participante   User   @relation(fields: [participanteId], references: [id])
+  trilha         Trilha @relation(fields: [trilhaId], references: [id])
+
+  @@unique([participanteId, trilhaId])
+  @@map("badges")
 }
