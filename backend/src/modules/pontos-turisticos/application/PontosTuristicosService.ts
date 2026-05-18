@@ -1,11 +1,21 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import type { IPontosTuristicosService } from '../domain/interfaces/IPontosTuristicosService';
 import type { PrismaPontosRepository } from '../infrastructure/persistence/PrismaPontosRepository';
+import { BuscaBase } from './filtros/BuscaBase';
+import { FiltroRegiao } from './filtros/FiltroRegiao';
+import { FiltroEstado } from './filtros/FiltroEstado';
+import { FiltroCidade } from './filtros/FiltroCidade';
+import { FiltroTipo } from './filtros/FiltroTipo';
+import type { IBuscaPontos } from './filtros/IBuscaPontos';
 
 interface PontoDTO {
   id: string;
   titulo?: string;
   descricao?: string;
+  regiao?: string;
+  estado?: string;
+  cidade?: string;
+  tipo?: string;
   criadoPor?: string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -39,19 +49,27 @@ export class PontosTuristicosService implements IPontosTuristicosService {
   }
 
   async buscarFeed(filtros: Record<string, any>): Promise<any[]> {
+    let busca: IBuscaPontos = new BuscaBase();
+    if (filtros?.regiao) busca = new FiltroRegiao(busca, filtros.regiao);
+    if (filtros?.uf)     busca = new FiltroEstado(busca, filtros.uf);
+    if (filtros?.cidade) busca = new FiltroCidade(busca, filtros.cidade);
+    if (filtros?.tipo)   busca = new FiltroTipo(busca, filtros.tipo);
+
+    const where = busca.construirWhere();
+
     if (this.repository) {
       try {
-        return await this.buscarFeedRepo(filtros);
+        return await this.buscarFeedRepo(where);
       } catch (e) {
         // fallback to in-memory on repository failure
       }
     }
 
     const all = Array.from(this.storage.values());
-    if (!filtros || Object.keys(filtros).length === 0) return all;
+    if (Object.keys(where).length === 0) return all;
 
     return all.filter((p) => {
-      return Object.entries(filtros).every(([k, v]) => p[k] === v);
+      return Object.entries(where).every(([k, v]) => p[k] === v);
     });
   }
 
