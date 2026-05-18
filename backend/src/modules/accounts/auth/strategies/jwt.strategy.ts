@@ -6,9 +6,11 @@ import { Role } from '../enums/role.enum';
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
+    const publicKey = process.env.SUPABASE_JWT_PUBLIC_KEY?.replace(/\\n/g, '\n');
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.JWT_SECRET ?? '',
+      secretOrKey: publicKey ?? process.env.JWT_SECRET ?? '',
+      algorithms: publicKey ? ['ES256'] : ['HS256'],
     });
   }
 
