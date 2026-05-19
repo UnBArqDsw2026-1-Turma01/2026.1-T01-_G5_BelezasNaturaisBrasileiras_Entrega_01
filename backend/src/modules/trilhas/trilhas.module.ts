@@ -12,6 +12,7 @@ import { CriarTrilhaUseCase } from './application/use-cases/CriarTrilhaUseCase';
 import { ListarTrilhasUseCase } from './application/use-cases/ListarTrilhasUseCase';
 import { FinalizarTrilhaUseCase } from './application/use-cases/FinalizarTrilhaUseCase';
 import { ListarInscricoesUseCase } from '../inscricoes/application/use-cases/ListarInscricoesUseCase';
+import { TrilhaFacade } from './application/TrilhaFacade';
 import { TrilhasController } from './interface/controllers/TrilhasController';
 
 @Module({
@@ -33,6 +34,7 @@ import { TrilhasController } from './interface/controllers/TrilhasController';
     ListarTrilhasUseCase,
     FinalizarTrilhaUseCase,
     ListarInscricoesUseCase,
+    TrilhaFacade,
   ],
   exports: [ConfirmationCodeService, TrilhaEventEmitter],
 })
