@@ -5,7 +5,9 @@ import {
   HttpCode,
   Inject,
   Param,
+  Patch,
   Post,
+  Query,
   Request,
   UseGuards,
 } from '@nestjs/common';
@@ -22,6 +24,9 @@ import { LocalizacaoFolha } from '../../domain/localizacao/LocalizacaoFolha';
 import { ValidarCodigoInput } from '../../application/dtos/ValidarCodigoInput';
 import { LocalizacaoInput } from '../../application/dtos/LocalizacaoInput';
 import { CriarTrilhaInput } from '../../application/dtos/CriarTrilhaInput';
+import { EditarTrilhaInput } from '../../application/dtos/EditarTrilhaInput';
+import { ListarTrilhasInput } from '../../application/dtos/ListarTrilhasInput';
+import { Trilha } from '../../domain/entities/Trilha';
 
 @Controller('trilhas')
 export class TrilhasController {
@@ -38,8 +43,8 @@ export class TrilhasController {
   // ─── CRUD TRILHA ──────────────────────────────────────────────────────────
 
   @Get()
-  listar() {
-    return this.trilhaFacade.listar();
+  listar(@Query() input: ListarTrilhasInput) {
+    return this.trilhaFacade.listar(input);
   }
 
   @Post()
@@ -47,6 +52,19 @@ export class TrilhasController {
   @UseGuards(JwtAuthGuard)
   criar(@Request() req: JwtRequest, @Body() body: CriarTrilhaInput) {
     return this.trilhaFacade.criar(req.user.userId, body);
+  }
+
+  @Patch(':id')
+  @HttpCode(200)
+  @UseGuards(JwtAuthGuard)
+  editar(
+    @Param('id') id: string,
+    @Body() body: EditarTrilhaInput,
+    @Request() req: JwtRequest,
+  ): Promise<Trilha> {
+    return this.requestContext.run(req.user.userId, () =>
+      this.trilhaFacade.editar(id, req.user.userId, body),
+    );
   }
 
   @Get(':id/inscricoes')
@@ -63,6 +81,16 @@ export class TrilhasController {
       this.trilhaFacade.finalizar(trilhaId, req.user.userId),
     );
     return { mensagem: 'Trilha finalizada com sucesso.' };
+  }
+
+  @Post(':id/restaurar')
+  @HttpCode(200)
+  @UseGuards(JwtAuthGuard)
+  async restaurar(@Param('id') trilhaId: string, @Request() req: JwtRequest) {
+    const trilha = await this.requestContext.run(req.user.userId, () =>
+      this.trilhaFacade.restaurar(trilhaId, req.user.userId),
+    );
+    return { mensagem: 'Estado anterior da trilha restaurado.', trilha };
   }
 
   @Post('codigos/gerar')

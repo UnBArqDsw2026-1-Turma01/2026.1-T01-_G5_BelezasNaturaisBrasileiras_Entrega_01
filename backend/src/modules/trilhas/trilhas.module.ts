@@ -16,9 +16,12 @@ import { PrismaBadgeRepository } from './infrastructure/persistence/PrismaBadgeR
 import { CriarTrilhaUseCase } from './application/use-cases/CriarTrilhaUseCase';
 import { ListarTrilhasUseCase } from './application/use-cases/ListarTrilhasUseCase';
 import { FinalizarTrilhaUseCase } from './application/use-cases/FinalizarTrilhaUseCase';
+import { RestaurarTrilhaUseCase } from './application/use-cases/RestaurarTrilhaUseCase';
+import { EditarTrilhaUseCase } from './application/use-cases/EditarTrilhaUseCase';
 import { ListarInscricoesUseCase } from '../inscricoes/application/use-cases/ListarInscricoesUseCase';
 import { TrilhaFacade } from './application/TrilhaFacade';
 import { TrilhasController } from './interface/controllers/TrilhasController';
+import { TrilhaCaretaker } from './domain/memento/TrilhaCaretaker';
 
 @Module({
   imports: [PassportModule],
@@ -50,9 +53,12 @@ import { TrilhasController } from './interface/controllers/TrilhasController';
     TrilhaEventEmitter,
     BadgeDistribuicaoObserver,
     NotificacaoObserver,
+    TrilhaCaretaker,
     CriarTrilhaUseCase,
     ListarTrilhasUseCase,
     FinalizarTrilhaUseCase,
+    RestaurarTrilhaUseCase,
+    EditarTrilhaUseCase,
     ListarInscricoesUseCase,
     TrilhaFacade,
   ],
