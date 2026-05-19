@@ -1,4 +1,5 @@
 import { TrilhaStatus } from '../enums/TrilhaStatus';
+import { TrilhaMemento } from '../memento/TrilhaMemento';
 
 export class Trilha {
   id: string;
@@ -45,5 +46,26 @@ export class Trilha {
 
   marcarLotada(): void {
     this.status = TrilhaStatus.LOTADA;
+  }
+
+  saveState(): TrilhaMemento {
+    return new TrilhaMemento({
+      titulo: this.titulo,
+      descricao: this.descricao,
+      pontoEncontro: this.pontoEncontro,
+      dataInicio: this.dataInicio,
+      vagasMaximas: this.vagasMaximas,
+      status: this.status,
+    });
+  }
+
+  restoreState(memento: TrilhaMemento): void {
+    const state = memento.getState();
+    this.titulo = state.titulo;
+    this.descricao = state.descricao;
+    this.pontoEncontro = state.pontoEncontro;
+    this.dataInicio = state.dataInicio;
+    this.vagasMaximas = state.vagasMaximas;
+    this.status = state.status;
   }
 }

@@ -6,6 +6,9 @@ import { CreateAccountInput } from '../dtos/CreateAccountInput';
 import { CreateAccountOutput } from '../dtos/CreateAccountOutput';
 import { UserRole } from '../../domain/entities/User';
 import { UserMapper } from '../../infrastructure/mappers/UserMapper';
+import { EmailUniquenessHandler } from '../../domain/validation/EmailUniquenessHandler';
+import { PasswordStrengthHandler } from '../../domain/validation/PasswordStrengthHandler';
+import { TermsAcceptanceHandler } from '../../domain/validation/TermsAcceptanceHandler';
 
 @Injectable()
 export class CreateAccountUseCase {
@@ -18,7 +21,17 @@ export class CreateAccountUseCase {
     private userFactoryRegistry: IUserFactoryRegistry,
   ) {}
 
+  private buildValidationChain() {
+    const email = new EmailUniquenessHandler(this.userRepository);
+    const password = new PasswordStrengthHandler();
+    const terms = new TermsAcceptanceHandler();
+    email.setNext(password).setNext(terms);
+    return email;
+  }
+
   async execute(input: CreateAccountInput): Promise<CreateAccountOutput> {
+    await this.buildValidationChain().handle(input);
+
     let supabaseUser: { uid: string };
     try {
       supabaseUser = await this.supabaseAuthService.createUser(
