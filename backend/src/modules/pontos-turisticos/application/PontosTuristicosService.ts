@@ -40,11 +40,7 @@ export class PontosTuristicosService implements IPontosTuristicosService {
 
   async buscarFeed(filtros: Record<string, any>): Promise<any[]> {
     if (this.repository) {
-      try {
-        return await this.buscarFeedRepo(filtros);
-      } catch (e) {
-        // fallback to in-memory on repository failure
-      }
+      return await this.buscarFeedRepo(filtros);
     }
 
     const all = Array.from(this.storage.values());
@@ -57,11 +53,7 @@ export class PontosTuristicosService implements IPontosTuristicosService {
 
   async criar(dados: any, usuarioId: string): Promise<any> {
     if (this.repository) {
-      try {
-        return await this.criarRepo(dados, usuarioId);
-      } catch (e) {
-        // fallback
-      }
+      return await this.criarRepo(dados, usuarioId);
     }
 
     const id = String(Date.now()) + Math.floor(Math.random() * 1000);
@@ -72,27 +64,19 @@ export class PontosTuristicosService implements IPontosTuristicosService {
 
   async editar(id: string, dados: any, usuarioId: string): Promise<any> {
     if (this.repository) {
-      try {
-        return await this.editarRepo(id, dados, usuarioId);
-      } catch (e) {
-        // fallback
-      }
+      return await this.editarRepo(id, dados, usuarioId);
     }
 
     const existing = this.storage.get(id);
     if (!existing) throw new NotFoundException('Ponto não encontrado');
-    const atualizado = { ...existing, ...dados, updatedBy: usuarioId, updatedAt: new Date() };
+    const atualizado = { ...existing, ...dados, updatedAt: new Date() };
     this.storage.set(id, atualizado);
     return atualizado;
   }
 
   async deletar(id: string, usuarioId: string): Promise<void> {
     if (this.repository) {
-      try {
-        return await this.deletarRepo(id, usuarioId);
-      } catch (e) {
-        // fallback
-      }
+      return await this.deletarRepo(id, usuarioId);
     }
 
     const existing = this.storage.get(id);
