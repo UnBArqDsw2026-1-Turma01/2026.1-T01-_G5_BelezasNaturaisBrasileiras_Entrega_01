@@ -6,8 +6,10 @@ import { GoogleMapsAdapter } from './map/google-maps.adapter';
 import { MapAdapterService } from './map/map-adapter.service';
 import { TwilioAdapter } from './notify/twilio.adapter';
 import { NotificationAdapterService } from './notify/notification-adapter.service';
+import { AdaptersController } from './adapters.controller';
 
 @Module({
+  controllers: [AdaptersController],
   providers: [
     GoogleAuthAdapter,
     LocalAuthAdapter,

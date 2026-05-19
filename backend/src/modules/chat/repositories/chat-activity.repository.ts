@@ -5,8 +5,7 @@ import { PrismaService } from '../../../shared/infrastructure/prisma/prisma.serv
 export class ChatActivityRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async logActivity(payload: any) {
-    // Placeholder: implement schema and logging
-    return this.prisma.chatActivity.create({ data: { payload: JSON.stringify(payload) } });
+  async logActivity(chatSessionId: string, payload: any) {
+    return this.prisma.chatActivity.create({ data: { chatSessionId, payload } });
   }
 }

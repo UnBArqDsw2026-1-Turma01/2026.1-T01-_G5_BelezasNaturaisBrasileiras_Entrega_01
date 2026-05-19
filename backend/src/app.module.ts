@@ -4,6 +4,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AccountsModule } from './modules/accounts/accounts.module';
 import { PontosTuristicosModule } from './modules/pontos-turisticos/pontos-turisticos.module';
+import { ChatModule } from './modules/chat/chat.module';
+import { AdaptersModule } from './modules/adapters/adapters.module';
 
 @Module({
   imports: [
@@ -13,9 +15,8 @@ import { PontosTuristicosModule } from './modules/pontos-turisticos/pontos-turis
     }),
     AccountsModule,
     PontosTuristicosModule,
-    // New modules
-    (await import('./modules/chat/chat.module')).ChatModule,
-    (await import('./modules/adapters/adapters.module')).AdaptersModule,
+    ChatModule,
+    AdaptersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

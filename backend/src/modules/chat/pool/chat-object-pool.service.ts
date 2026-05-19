@@ -39,10 +39,9 @@ export class ChatObjectPoolService implements IObjectPool<IChatConnection>, OnMo
   }
 
   async cleanIdle(): Promise<void> {
-    // Simple cleanup: close all
     while (this.pool.length) {
       const c = this.pool.pop();
-      try { await c.close(); } catch (e) {}
+      if (c) try { await c.close(); } catch (e) {}
     }
   }
 }

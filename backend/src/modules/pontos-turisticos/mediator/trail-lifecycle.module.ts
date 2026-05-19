@@ -6,9 +6,11 @@ import { AttendanceHandler } from './handlers/attendance.handler';
 import { BadgeHandler } from './handlers/badge.handler';
 import { HistoryNotificationHandler } from './handlers/history-notification.handler';
 import { TrailStateHandler } from './handlers/trail-state.handler';
+import { PrismaService } from '../../../shared/infrastructure/prisma/prisma.service';
 
 @Module({
   providers: [
+    PrismaService,
     TrailLifecycleMediatorService,
     TrailLifecycleRepository,
     TrailSagaStateRepository,
