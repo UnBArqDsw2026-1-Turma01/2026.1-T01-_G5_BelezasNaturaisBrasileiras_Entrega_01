@@ -6,13 +6,27 @@ export class PrismaPontosRepository {
   private readonly logger = new Logger('PrismaPontosRepository');
   constructor(private readonly prisma: PrismaService) {}
 
+  private filterData(dados: any) {
+    const validFields = ['titulo', 'descricao'];
+    const filtered: any = {};
+    validFields.forEach((field) => {
+      if (dados[field] !== undefined) {
+        filtered[field] = dados[field];
+      }
+    });
+    return filtered;
+  }
+
   private buildWhere(filtros: Record<string, any>) {
     if (!filtros || Object.keys(filtros).length === 0) return undefined;
     const where: any = {};
+    const validFields = ['titulo', 'descricao', 'criadoPor'];
     Object.entries(filtros).forEach(([k, v]) => {
-      where[k] = { equals: v };
+      if (validFields.includes(k)) {
+        where[k] = { equals: v };
+      }
     });
-    return where;
+    return Object.keys(where).length > 0 ? where : undefined;
   }
 
   async buscarFeed(filtros: Record<string, any>): Promise<any[]> {
@@ -24,7 +38,7 @@ export class PrismaPontosRepository {
       const where = this.buildWhere(filtros);
       return await client.findMany({ where });
     } catch (error) {
-      this.logger.error('Error accessing Prisma ponto model, falling back', error as any);
+      this.logger.error('Error accessing Prisma ponto model', error as any);
       throw error;
     }
   }
@@ -34,7 +48,7 @@ export class PrismaPontosRepository {
       const client: any = (this.prisma as any).ponto;
       if (!client) throw new Error('Prisma model `ponto` não disponível');
 
-      const data = { ...dados, criadoPor: usuarioId };
+      const data = { ...this.filterData(dados), criadoPor: usuarioId };
       return await client.create({ data });
     } catch (error) {
       this.logger.error('Error creating ponto via Prisma', error as any);
@@ -47,7 +61,7 @@ export class PrismaPontosRepository {
       const client: any = (this.prisma as any).ponto;
       if (!client) throw new Error('Prisma model `ponto` não disponível');
 
-      const data = { ...dados, updatedBy: usuarioId };
+      const data = this.filterData(dados);
       return await client.update({ where: { id }, data });
     } catch (error) {
       this.logger.error('Error updating ponto via Prisma', error as any);

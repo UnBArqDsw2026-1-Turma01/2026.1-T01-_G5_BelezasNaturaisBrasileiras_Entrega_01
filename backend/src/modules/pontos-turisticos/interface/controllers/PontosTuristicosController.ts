@@ -28,9 +28,10 @@ export class PontosTuristicosController {
   }
 
   @Delete(':id')
-  deletar(@Param('id') id: string, @Headers('x-user-email') userEmail?: string) {
+  async deletar(@Param('id') id: string, @Headers('x-user-email') userEmail?: string) {
     const usuarioId = userEmail || 'extraído do JWT';
-    return this.service.deletar(id, usuarioId);
+    await this.service.deletar(id, usuarioId);
+    return { message: 'Ponto turístico removido com sucesso' };
   }
 
   @Post(':id/finalizar')
