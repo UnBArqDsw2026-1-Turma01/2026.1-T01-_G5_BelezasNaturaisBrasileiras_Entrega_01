@@ -9,6 +9,7 @@ import { AceitarInscricaoUseCase } from './application/use-cases/AceitarInscrica
 import { RejeitarInscricaoUseCase } from './application/use-cases/RejeitarInscricaoUseCase';
 import { FazerCheckinUseCase } from './application/use-cases/FazerCheckinUseCase';
 import { ListarInscricoesUseCase } from './application/use-cases/ListarInscricoesUseCase';
+import { InscricaoFacade } from './application/InscricaoFacade';
 import { InscricoesController } from './interface/controllers/InscricoesController';
 
 @Module({
@@ -27,6 +28,7 @@ import { InscricoesController } from './interface/controllers/InscricoesControll
     RejeitarInscricaoUseCase,
     FazerCheckinUseCase,
     ListarInscricoesUseCase,
+    InscricaoFacade,
   ],
   exports: ['IInscricaoRepository', ListarInscricoesUseCase],
 })

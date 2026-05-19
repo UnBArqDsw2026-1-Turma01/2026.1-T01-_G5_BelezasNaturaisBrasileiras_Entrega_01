@@ -14,10 +14,9 @@ import { JwtRequest } from '../../../accounts/auth/types/jwt-request.type';
 import { ConfirmationCodeService } from '../../domain/services/ConfirmationCodeService';
 import { TrilhaEventEmitter } from '../../domain/observers/TrilhaEventEmitter';
 import { IBadgeRepository } from '../../domain/interfaces/IBadgeRepository';
-import { CriarTrilhaUseCase } from '../../application/use-cases/CriarTrilhaUseCase';
-import { ListarTrilhasUseCase } from '../../application/use-cases/ListarTrilhasUseCase';
-import { FinalizarTrilhaUseCase } from '../../application/use-cases/FinalizarTrilhaUseCase';
 import { ListarInscricoesUseCase } from '../../../inscricoes/application/use-cases/ListarInscricoesUseCase';
+import { TrilhaFacade } from '../../application/TrilhaFacade';
+import { TrilhaRequestContext } from '../../domain/services/TrilhaRequestContext';
 import { LocalizacaoComposita } from '../../domain/localizacao/LocalizacaoComposita';
 import { LocalizacaoFolha } from '../../domain/localizacao/LocalizacaoFolha';
 import { ValidarCodigoInput } from '../../application/dtos/ValidarCodigoInput';
@@ -27,28 +26,27 @@ import { CriarTrilhaInput } from '../../application/dtos/CriarTrilhaInput';
 @Controller('trilhas')
 export class TrilhasController {
   constructor(
+    private readonly trilhaFacade: TrilhaFacade,
     private readonly confirmationCodeService: ConfirmationCodeService,
     private readonly trilhaEventEmitter: TrilhaEventEmitter,
     @Inject('IBadgeRepository')
     private readonly badgeRepository: IBadgeRepository,
-    private readonly criarTrilhaUseCase: CriarTrilhaUseCase,
-    private readonly listarTrilhasUseCase: ListarTrilhasUseCase,
-    private readonly finalizarTrilhaUseCase: FinalizarTrilhaUseCase,
     private readonly listarInscricoesUseCase: ListarInscricoesUseCase,
+    private readonly requestContext: TrilhaRequestContext,
   ) {}
 
   // ─── CRUD TRILHA ──────────────────────────────────────────────────────────
 
   @Get()
   listar() {
-    return this.listarTrilhasUseCase.execute();
+    return this.trilhaFacade.listar();
   }
 
   @Post()
   @HttpCode(201)
   @UseGuards(JwtAuthGuard)
   criar(@Request() req: JwtRequest, @Body() body: CriarTrilhaInput) {
-    return this.criarTrilhaUseCase.execute(req.user.userId, body);
+    return this.trilhaFacade.criar(req.user.userId, body);
   }
 
   @Get(':id/inscricoes')
@@ -61,7 +59,9 @@ export class TrilhasController {
   @HttpCode(200)
   @UseGuards(JwtAuthGuard)
   async finalizar(@Param('id') trilhaId: string, @Request() req: JwtRequest) {
-    await this.finalizarTrilhaUseCase.execute(trilhaId, req.user.userId);
+    await this.requestContext.run(req.user.userId, () =>
+      this.trilhaFacade.finalizar(trilhaId, req.user.userId),
+    );
     return { mensagem: 'Trilha finalizada com sucesso.' };
   }
 

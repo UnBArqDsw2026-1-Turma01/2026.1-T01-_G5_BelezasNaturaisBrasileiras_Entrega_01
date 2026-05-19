@@ -18,9 +18,14 @@ export class TrilhaEventEmitter {
     }
   }
 
-  async notificarFinalizacao(trilhaId: string, participanteIds: string[]): Promise<void> {
+  async notificarFinalizacao(
+    trilhaId: string,
+    participanteIds: string[],
+  ): Promise<void> {
     await Promise.all(
-      this.observers.map((o) => o.onTrilhaFinalizada(trilhaId, participanteIds)),
+      this.observers.map((o) =>
+        o.onTrilhaFinalizada(trilhaId, participanteIds),
+      ),
     );
   }
 
