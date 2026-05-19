@@ -13,6 +13,9 @@ import { PontosTuristicosModule } from './modules/pontos-turisticos/pontos-turis
     }),
     AccountsModule,
     PontosTuristicosModule,
+    // New modules
+    (await import('./modules/chat/chat.module')).ChatModule,
+    (await import('./modules/adapters/adapters.module')).AdaptersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

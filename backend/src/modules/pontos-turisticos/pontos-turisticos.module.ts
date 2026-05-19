@@ -5,6 +5,7 @@ import { PontosCacheProxy } from './interface/proxies/PontosCacheProxy';
 import { PontosTuristicosController } from './interface/controllers/PontosTuristicosController';
 import { PrismaService } from '../../shared/infrastructure/prisma/prisma.service';
 import { AccountsModule } from '../accounts/accounts.module';
+import { TrailLifecycleModule } from './mediator/trail-lifecycle.module';
 
 import { BuscarFeedUseCase } from './application/use-cases/BuscarFeedUseCase';
 import { CriarPontoUseCase } from './application/use-cases/CriarPontoUseCase';
@@ -14,7 +15,7 @@ import { DeletarPontoUseCase } from './application/use-cases/DeletarPontoUseCase
 import { PrismaPontosRepository } from './infrastructure/persistence/PrismaPontosRepository';
 
 @Module({
-  imports: [AccountsModule],
+  imports: [AccountsModule, TrailLifecycleModule],
   controllers: [PontosTuristicosController],
   providers: [
     PrismaService,
