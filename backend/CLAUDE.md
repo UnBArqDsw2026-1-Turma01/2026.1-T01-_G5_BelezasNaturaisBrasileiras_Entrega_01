@@ -1,36 +1,122 @@
-# Projeto Backend (NestJS + Clean Arch)
+# Backend — BelezasNaturaisBrasileiras
 
-## Escopo e Contexto
-- **Stack:** TypeScript, NestJS, Prisma, PostgreSQL.
-- **Localização:** Você está na pasta `./backend`.
-- **Regras de Negócio:** SEMPRE consulte `../docs/` antes de iniciar qualquer tarefa. É o nosso "Single Source of Truth".
+## Stack
+- **Runtime/Framework:** Node.js · TypeScript · NestJS 11
+- **ORM:** Prisma 7 (cliente gerado em `src/generated/prisma/`)
+- **Banco:** PostgreSQL 15 (Docker local) · Supabase Auth (produção)
+- **Auth:** Passport JWT (`JwtAuthGuard` + `RolesGuard` + `@Roles()`)
 
-## Mapa do Tesouro (Divulgação Progressiva)
-Para manter o contexto limpo, leia os arquivos abaixo apenas quando a tarefa exigir:
+## Regras de Negócio
+Consulte `../docs/` antes de iniciar qualquer tarefa — é o nosso Single Source of Truth.
 
-- **Arquitetura & Pastas:** Consulte `./.claude/arch.md` para entender as camadas (Domain, Application, etc).
-- **Padrões de Código:** Consulte `./.claude/code-style.md` para Mappers, DTOs e inversão de dependência.
-- **Banco de Dados:** Consulte `./.claude/db-guidelines.md` para regras de Prisma e Migrations.
-- **Testes unitários:** Consulte `./.claude/testing.md` para regras dos testes unitários.
-- **Revisão:** Consulte `./.claude/review-checklist.md` antes de finalizar.
+---
 
-## Setup do Banco de Dados Local (Docker)
+## Estrutura de Pastas
 
-> Detalhes técnicos e troubleshooting em `./.claude/docker-setup.md`.
+O projeto usa **módulos verticais** dentro de `src/modules/<modulo>/`:
 
-1. Copie o arquivo de variáveis: `cp .env.example .env.local`
-2. Suba o banco: `docker-compose up -d`
-3. Acesse o pgAdmin em `http://localhost:5050` (credenciais em `.env.local`)
-4. Para conectar ao banco no pgAdmin: host `postgres`, porta `5432`, usuário/senha conforme `.env.local`
-5. Para parar: `docker-compose down` (dados persistem no volume `bnb_postgres_data`)
+```
+src/
+├── modules/
+│   └── accounts/
+│       ├── domain/          # Entidades, interfaces, enums — ZERO dependências externas
+│       │   ├── entities/    # User.ts (implementa IPrototype — padrão Prototype)
+│       │   ├── builders/    # UserBuilder.ts (padrão Builder)
+│       │   └── interfaces/  # IUserRepository, IUserFactory, IUserFactoryRegistry, ISupabaseAuthService
+│       ├── application/     # Use Cases e DTOs
+│       │   ├── use-cases/   # CreateAccountUseCase, PromoteUserUseCase
+│       │   └── dtos/        # CreateAccountInput/Output, PromoteUserInput/Output
+│       ├── infrastructure/  # Implementações concretas (Prisma, Supabase, Factories)
+│       │   ├── factories/   # AdminUserFactory, CommonUserFactory, OrganizerUserFactory, UserFactoryRegistry
+│       │   ├── mappers/     # UserMapper (toDomain / toPersistence)
+│       │   ├── persistence/ # PrismaUserRepository
+│       │   └── services/    # SupabaseAuthService
+│       ├── interface/       # Controllers NestJS e providers de injeção
+│       │   ├── controllers/ # AccountController
+│       │   └── providers/   # UserFactoryProvider
+│       └── auth/            # Guards, strategies, decorators, enums
+│           ├── guards/      # JwtAuthGuard, RolesGuard
+│           ├── strategies/  # jwt.strategy.ts
+│           ├── decorators/  # @Roles()
+│           └── enums/       # role.enum.ts
+└── shared/
+    └── infrastructure/
+        ├── prisma/          # PrismaService
+        └── supabase/        # supabase.provider.ts
+```
 
-## Comandos Úteis
-- Build: `npm run build`
-- Testes: `npm run test`
-- Lint: `npm run lint` (Sempre rode antes de entregar).
-- Prisma: `npx prisma generate`
+---
 
-## Regras Universais
-- Nunca importe `infrastructure` ou `interface` dentro de `domain`.
-- Use Mappers para isolar o Prisma do Domínio.
-- Se a lógica de negócio mudar, atualize os documentos em `../docs/`.
+## Padrões GoF Implementados
+
+| Padrão | Onde | Descrição |
+|---|---|---|
+| **Builder** | `domain/builders/UserBuilder.ts` | Construção fluente de `User` com validação |
+| **Factory** | `infrastructure/factories/` | `AdminUserFactory`, `CommonUserFactory`, `OrganizerUserFactory` — cada role tem sua própria factory |
+| **Factory Registry** | `infrastructure/factories/UserFactoryRegistry.ts` | Mapeia `UserRole → IUserFactory`; use `registry.get(role).create(...)` |
+| **Prototype** | `domain/entities/User.ts` | `User.clone(overrides?)` para criar cópias com campos alterados |
+
+---
+
+## Regras de Arquitetura
+
+- **Nunca** importe `infrastructure` ou `interface` dentro de `domain` ou `application`.
+- **Nunca** importe `@prisma/client` fora de `infrastructure/`.
+- Use `UserMapper.toDomain()` e `UserMapper.toPersistence()` — o Prisma nunca chega ao domínio.
+- Use Cases dependem de **interfaces** (`IUserRepository`), nunca de classes concretas.
+- Repositórios ficam em `infrastructure/persistence/` e implementam interfaces de `domain/interfaces/`.
+- Controllers **apenas** delegam ao Use Case e tratam o retorno HTTP.
+
+### Autenticação
+- Senhas nunca entram no Prisma — Supabase Auth é a única fonte de verdade para credenciais.
+- O `User.id` no Prisma **é** o `supabaseId` (UUID gerado pelo Supabase).
+- Rotas protegidas usam `@UseGuards(JwtAuthGuard, RolesGuard)` + `@Roles(Role.ADMIN)`.
+
+---
+
+## Comandos
+
+```bash
+# Desenvolvimento
+npm run start:dev          # Inicia o servidor
+
+# Qualidade (rode antes de abrir PR)
+npm run lint               # ESLint + Prettier --fix
+npm run test               # Jest (unit tests)
+npm run test:cov           # Cobertura de testes
+
+# Prisma
+npm run prisma:generate    # Regenera o cliente após mudança no schema
+npm run prisma:migrate:dev # Cria e aplica migration em dev
+npm run prisma:studio      # Abre Prisma Studio (UI do banco)
+
+# Build
+npm run build
+```
+
+---
+
+## Setup Local (Docker)
+
+> Troubleshooting detalhado em `.claude/docker-setup.md`.
+
+```bash
+cp .env.example .env.local   # Copiar variáveis de ambiente
+docker-compose up -d         # Subir PostgreSQL + pgAdmin
+```
+
+- **pgAdmin:** `http://localhost:5050` (credenciais em `.env.local`)
+- **Conectar ao banco no pgAdmin:** host `postgres`, porta `5432`
+- `docker-compose down` preserva dados · `docker-compose down -v` apaga tudo
+
+---
+
+## Referência Rápida (leia sob demanda)
+
+| Preciso de... | Arquivo |
+|---|---|
+| Camadas e responsabilidades | `.claude/arch.md` |
+| Mappers, DTOs, inversão de dependência | `.claude/code-style.md` |
+| Prisma, migrations, Supabase | `.claude/db-guidelines.md` |
+| Testes unitários (AAA, mocks, localização) | `.claude/testing.md` |
+| Checklist de revisão antes de finalizar | `.claude/review-checklist.md` |
