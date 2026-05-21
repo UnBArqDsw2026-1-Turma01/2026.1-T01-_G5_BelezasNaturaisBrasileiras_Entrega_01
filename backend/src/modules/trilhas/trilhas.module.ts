@@ -23,7 +23,10 @@ import { TrilhaFacade } from './application/TrilhaFacade';
 import { TrilhasController } from './interface/controllers/TrilhasController';
 import { TrilhaCaretaker } from './domain/memento/TrilhaCaretaker';
 import { TrailLifecycleModule } from '../pontos-turisticos/mediator/trail-lifecycle.module';
-import { TrailLifecycleMediatorService } from '../pontos-turisticos/mediator/trail-lifecycle-mediator.service';
+import { LoggerNotificationChannel } from './domain/notifications/LoggerNotificationChannel';
+import { OrdenarTrilhasPorDataStrategy } from './domain/strategies/OrdenarTrilhasPorDataStrategy';
+import { OrdenarTrilhasPorTituloStrategy } from './domain/strategies/OrdenarTrilhasPorTituloStrategy';
+import { TrilhaOrdenacaoContext } from './domain/strategies/TrilhaOrdenacaoContext';
 
 @Module({
   imports: [PassportModule, TrailLifecycleModule],
@@ -53,16 +56,26 @@ import { TrailLifecycleMediatorService } from '../pontos-turisticos/mediator/tra
     { provide: 'IInscricaoRepository', useClass: PrismaInscricaoRepository },
     { provide: 'IBadgeRepository', useClass: PrismaBadgeRepository },
     TrilhaEventEmitter,
+    LoggerNotificationChannel,
     BadgeDistribuicaoObserver,
     NotificacaoObserver,
     TrilhaCaretaker,
+    OrdenarTrilhasPorDataStrategy,
+    OrdenarTrilhasPorTituloStrategy,
+    TrilhaOrdenacaoContext,
     CriarTrilhaUseCase,
     ListarTrilhasUseCase,
     {
       provide: FinalizarTrilhaUseCase,
-      useFactory: (repo, inscRepo, emitter, caretaker, mediator) => 
+      useFactory: (repo, inscRepo, emitter, caretaker, mediator) =>
         new FinalizarTrilhaUseCase(repo, inscRepo, emitter, caretaker, mediator),
-      inject: ['ITrilhaRepository', 'IInscricaoRepository', TrilhaEventEmitter, TrilhaCaretaker, 'ITrailLifecycleMediator']
+      inject: [
+        'ITrilhaRepository',
+        'IInscricaoRepository',
+        TrilhaEventEmitter,
+        TrilhaCaretaker,
+        'ITrailLifecycleMediator',
+      ],
     },
     RestaurarTrilhaUseCase,
     EditarTrilhaUseCase,
