@@ -27,6 +27,9 @@ import { CriarTrilhaInput } from '../../application/dtos/CriarTrilhaInput';
 import { EditarTrilhaInput } from '../../application/dtos/EditarTrilhaInput';
 import { ListarTrilhasInput } from '../../application/dtos/ListarTrilhasInput';
 import { Trilha } from '../../domain/entities/Trilha';
+import { RolesGuard } from '../../../accounts/auth/guards/roles.guard';
+import { Roles } from '../../../accounts/auth/decorators/roles.decorator';
+import { Role } from '../../../accounts/auth/enums/role.enum';
 
 @Controller('trilhas')
 export class TrilhasController {
@@ -49,14 +52,16 @@ export class TrilhasController {
 
   @Post()
   @HttpCode(201)
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ORGANIZER, Role.ADMIN)
   criar(@Request() req: JwtRequest, @Body() body: CriarTrilhaInput) {
     return this.trilhaFacade.criar(req.user.userId, body);
   }
 
   @Patch(':id')
   @HttpCode(200)
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ORGANIZER, Role.ADMIN)
   editar(
     @Param('id') id: string,
     @Body() body: EditarTrilhaInput,
@@ -75,7 +80,8 @@ export class TrilhasController {
 
   @Post(':id/finalizar')
   @HttpCode(200)
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ORGANIZER, Role.ADMIN)
   async finalizar(@Param('id') trilhaId: string, @Request() req: JwtRequest) {
     await this.requestContext.run(req.user.userId, () =>
       this.trilhaFacade.finalizar(trilhaId, req.user.userId),
@@ -85,7 +91,8 @@ export class TrilhasController {
 
   @Post(':id/restaurar')
   @HttpCode(200)
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ORGANIZER, Role.ADMIN)
   async restaurar(@Param('id') trilhaId: string, @Request() req: JwtRequest) {
     const trilha = await this.requestContext.run(req.user.userId, () =>
       this.trilhaFacade.restaurar(trilhaId, req.user.userId),
