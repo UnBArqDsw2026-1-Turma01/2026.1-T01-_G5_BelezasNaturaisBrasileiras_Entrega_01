@@ -19,6 +19,10 @@ export class CreateAccountInput {
   @IsNotEmpty()
   nome!: string;
 
+  @IsOptional()
+  @IsEnum(UserRole)
+  role?: UserRole;
+
   @IsBoolean()
   aceitouTermos!: boolean;
 
