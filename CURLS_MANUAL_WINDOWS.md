@@ -13,7 +13,7 @@
 Se o backend ainda nao estiver rodando, abra outro PowerShell e execute:
 
 ```powershell
-cd "C:\Documentos\GitHub\2026.1-T01-_G5_BelezasNaturaisBrasileiras_Entrega_01\backend"
+cd backend
 docker compose up -d
 npm run prisma:generate
 npm run prisma:migrate:deploy
