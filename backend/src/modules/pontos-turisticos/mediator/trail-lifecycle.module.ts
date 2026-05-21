@@ -12,6 +12,7 @@ import { PrismaService } from '../../../shared/infrastructure/prisma/prisma.serv
   providers: [
     PrismaService,
     TrailLifecycleMediatorService,
+    { provide: 'ITrailLifecycleMediator', useClass: TrailLifecycleMediatorService },
     TrailLifecycleRepository,
     TrailSagaStateRepository,
     AttendanceHandler,
@@ -19,6 +20,6 @@ import { PrismaService } from '../../../shared/infrastructure/prisma/prisma.serv
     HistoryNotificationHandler,
     TrailStateHandler,
   ],
-  exports: [TrailLifecycleMediatorService],
+  exports: [TrailLifecycleMediatorService, 'ITrailLifecycleMediator'],
 })
 export class TrailLifecycleModule {}

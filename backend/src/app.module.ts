@@ -8,6 +8,7 @@ import { ChatModule } from './modules/chat/chat.module';
 import { AdaptersModule } from './modules/adapters/adapters.module';
 import { TrilhasModule } from './modules/trilhas/trilhas.module';
 import { InscricoesModule } from './modules/inscricoes/inscricoes.module';
+import { PrismaService } from './shared/infrastructure/prisma/prisma.service';
 
 @Module({
   imports: [
@@ -23,6 +24,6 @@ import { InscricoesModule } from './modules/inscricoes/inscricoes.module';
     InscricoesModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, PrismaService],
 })
 export class AppModule {}

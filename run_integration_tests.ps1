@@ -1,5 +1,6 @@
 
 $baseUrl = "http://localhost:3000"
+$globalResults = New-Object System.Collections.Generic.List[PSObject]
 
 function Run-Step {
     param($title, $method, $path, $headers, $body)
@@ -16,6 +17,10 @@ function Run-Step {
         }
         $response = Invoke-RestMethod @params
         Write-Host ($response | ConvertTo-Json) -ForegroundColor Green
+        
+        $obj = New-Object PSObject -Property @{ Title = $title; Status = "PASS" }
+        $globalResults.Add($obj)
+        
         return $response
     } catch {
         Write-Host "FAILED: $_" -ForegroundColor Red
@@ -24,6 +29,10 @@ function Run-Step {
             $errorBody = $reader.ReadToEnd()
             Write-Host "Error Body: $errorBody" -ForegroundColor Red
         }
+        
+        $obj = New-Object PSObject -Property @{ Title = $title; Status = "FAIL" }
+        $globalResults.Add($obj)
+        
         return $null
     }
 }
@@ -193,3 +202,33 @@ Run-Step "28. ADAPTER DE AUTENTICAÇÃO" "POST" "/adapters/auth/validate" @{} @{
 
 # 29. DELETAR PONTO TURÍSTICO (Mediator)
 Run-Step "29. DELETAR PONTO TURÍSTICO (Mediator)" "DELETE" "/pontos-turisticos/$PONTO_ID" @{ "x-user-email" = $emailAdmin } $null
+
+# 30. VALIDAR PERSISTÊNCIA DE LOGS E CICLO DE VIDA (Diferencial)
+Run-Step "30. VALIDAR PERSISTÊNCIA DE LOGS E CICLO DE VIDA" "GET" "/debug/stats" @{} $null
+
+# --- RELATÓRIO FINAL ---
+Write-Host "`n========================================" -ForegroundColor Magenta
+Write-Host "       RESUMO DOS TESTES" -ForegroundColor White
+Write-Host "========================================" -ForegroundColor Magenta
+
+$passCount = ($globalResults | Where-Object { $_.Status -eq "PASS" }).Count
+$failCount = ($globalResults | Where-Object { $_.Status -eq "FAIL" }).Count
+
+Write-Host "TOTAL DE PASSOS: $($globalResults.Count)" -ForegroundColor Gray
+Write-Host "SUCESSO: $passCount" -ForegroundColor Green
+Write-Host "FALHA:   $failCount" -ForegroundColor Red
+
+if ($failCount -gt 0) {
+    Write-Host "`nDETALHE DAS FALHAS:" -ForegroundColor Red
+    $i = 1
+    foreach ($res in $globalResults) {
+        if ($res.Status -eq "FAIL") {
+            Write-Host "$i. $($res.Title)" -ForegroundColor Yellow
+        }
+        $i++
+    }
+} else {
+    Write-Host "`nPARABÉNS! TODOS OS PASSOS FORAM CONCLUÍDOS." -ForegroundColor Green
+}
+
+Write-Host "========================================`n" -ForegroundColor Magenta
