@@ -3,6 +3,7 @@
 - [Home](README.md)
 
 - **1. Desenho de Software**
+  - [1. Base](Base/1.Base.md)
   - [1.1. Design Sprint](Base/1.1.DesignSprint.md)
     - [01. Entender](DesignSprint/01-Entender/README.md)
     - [02. Esbocar](DesignSprint/02-Esbocar/README.md)
@@ -41,6 +42,7 @@
     - [3.2.3. Facade](PadroesDeProjeto/GoFsEstruturais/3.2.3Facade.md)
     - [3.2.4. Decorator](PadroesDeProjeto/GoFsEstruturais/3.2.4Decorator.md)
     - [3.2.5. Proxy](PadroesDeProjeto/GoFsEstruturais/3.2.5Proxy.md)
+    - [3.2.6. Flyweight](PadroesDeProjeto/GoFsEstruturais/3.2.6Flyweight.md)
   - [3.3. GoFs Comportamentais](PadroesDeProjeto/GoFsComportamentais/3.3.GoFsComportamentais.md)
     - [3.3.1. Chain of Responsibility](PadroesDeProjeto/GoFsComportamentais/3.3.1ChainOfResponsibility.md)
     - [3.3.2. Iterator](PadroesDeProjeto/GoFsComportamentais/3.3.2Iterator.md)
@@ -50,6 +52,7 @@
     - [3.3.6. Mediator](PadroesDeProjeto/GoFsComportamentais/3.3.6Mediator.md)
     - [3.3.7. Observer](PadroesDeProjeto/GoFsComportamentais/3.3.7Observer.md)
     - [3.3.8. Strategy](PadroesDeProjeto/GoFsComportamentais/3.3.8Strategy.md)
+    - [3.3.9. Visitor](PadroesDeProjeto/GoFsComportamentais/3.3.9Visitor.md)
   - [3.4. Participações](PadroesDeProjeto/3.4.ParticipacoesPadroes.md)
   - [3.5. Iniciativas Extras](PadroesDeProjeto/3.5.IniciativasExtras.md)
     - [3.5.1. Frontend](PadroesDeProjeto/IniciativasExtras/3.5.1.Frontend.md)
