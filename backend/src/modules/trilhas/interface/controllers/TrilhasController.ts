@@ -20,7 +20,7 @@ import { ListarInscricoesUseCase } from '../../../inscricoes/application/use-cas
 import { TrilhaFacade } from '../../application/TrilhaFacade';
 import { TrilhaRequestContext } from '../../domain/services/TrilhaRequestContext';
 import { LocalizacaoComposita } from '../../domain/localizacao/LocalizacaoComposita';
-import { LocalizacaoFolha } from '../../domain/localizacao/LocalizacaoFolha';
+import { LocalizacaoFlyweightFactory } from '../../domain/localizacao/LocalizacaoFlyweightFactory';
 import { ValidarCodigoInput } from '../../application/dtos/ValidarCodigoInput';
 import { LocalizacaoInput } from '../../application/dtos/LocalizacaoInput';
 import { CriarTrilhaInput } from '../../application/dtos/CriarTrilhaInput';
@@ -119,7 +119,9 @@ export class TrilhasController {
     const estado = new LocalizacaoComposita(body.estado, 'estado');
     const cidades = body.cidades.map((c) => {
       const cidade = new LocalizacaoComposita(c.nome, 'cidade');
-      c.pontos.forEach((nome) => cidade.adicionar(new LocalizacaoFolha(nome)));
+      c.pontos.forEach((nome) =>
+        cidade.adicionar(LocalizacaoFlyweightFactory.get(nome)),
+      );
       estado.adicionar(cidade);
       return {
         cidade: c.nome,

@@ -1,4 +1,5 @@
 import { InscricaoStatus } from '../enums/InscricaoStatus';
+import { IInscricaoVisitor } from '../interfaces/IInscricaoVisitor';
 
 export class Inscricao {
   id: string;
@@ -55,5 +56,18 @@ export class Inscricao {
     }
     this.status = InscricaoStatus.PRESENTE;
     this.checkinEm = new Date();
+  }
+
+  async accept(visitor: IInscricaoVisitor): Promise<void> {
+    switch (this.status) {
+      case InscricaoStatus.PRESENTE:
+        return visitor.visitPresente(this);
+      case InscricaoStatus.ACEITA:
+        return visitor.visitAceita(this);
+      case InscricaoStatus.REJEITADA:
+        return visitor.visitRejeitada(this);
+      case InscricaoStatus.PENDENTE:
+        return visitor.visitPendente(this);
+    }
   }
 }

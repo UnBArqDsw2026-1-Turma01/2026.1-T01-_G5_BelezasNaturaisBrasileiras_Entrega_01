@@ -1,7 +1,7 @@
 import { Injectable, Inject, NotFoundException } from '@nestjs/common';
 import { ITrilhaRepository } from '../../domain/interfaces/ITrilhaRepository';
 import { IInscricaoRepository } from '../../../inscricoes/domain/interfaces/IInscricaoRepository';
-import { TrilhaEventEmitter } from '../../domain/observers/TrilhaEventEmitter';
+import { IInscricaoVisitor } from '../../../inscricoes/domain/interfaces/IInscricaoVisitor';
 import { TrilhaCaretaker } from '../../domain/memento/TrilhaCaretaker';
 import { ITrailLifecycleMediator } from '../../../pontos-turisticos/mediator/interfaces/trail-lifecycle-mediator.interface';
 
@@ -12,10 +12,11 @@ export class FinalizarTrilhaUseCase {
     private readonly trilhaRepository: ITrilhaRepository,
     @Inject('IInscricaoRepository')
     private readonly inscricaoRepository: IInscricaoRepository,
-    private readonly trilhaEventEmitter: TrilhaEventEmitter,
     private readonly caretaker: TrilhaCaretaker,
     @Inject('ITrailLifecycleMediator')
     private readonly mediator: ITrailLifecycleMediator,
+    @Inject('IInscricaoVisitors')
+    private readonly visitors: IInscricaoVisitor[],
   ) {}
 
   async execute(trilhaId: string, organizadorId: string): Promise<void> {
@@ -32,13 +33,14 @@ export class FinalizarTrilhaUseCase {
     // Orquestrar eventos de ciclo de vida via Mediator
     await this.mediator.finishTrail(trilhaId, organizadorId);
 
-    const presentes =
-      await this.inscricaoRepository.findPresentesByTrilhaId(trilhaId);
-    const participanteIds = presentes.map((i) => i.usuarioId);
-
-    await this.trilhaEventEmitter.notificarFinalizacao(
-      trilhaId,
-      participanteIds,
-    );
+    // Visitor Pattern — aplica cada visitor sobre todas as inscrições da trilha.
+    // Cada visitor decide o que fazer com base no status de cada Inscricao
+    // (visitPresente, visitAceita, visitRejeitada, visitPendente).
+    const inscricoes = await this.inscricaoRepository.findByTrilhaId(trilhaId);
+    for (const visitor of this.visitors) {
+      for (const inscricao of inscricoes) {
+        await inscricao.accept(visitor);
+      }
+    }
   }
 }
