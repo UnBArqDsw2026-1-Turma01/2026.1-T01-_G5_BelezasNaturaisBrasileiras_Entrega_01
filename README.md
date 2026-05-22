@@ -51,102 +51,7 @@ docsify serve ./docs
 ```
 
 ---
- 
-## Como Rodar o Projeto
- 
-### Pré-requisitos
- 
-Certifique-se de ter instalado em sua máquina:
- 
-- [Node.js](https://nodejs.org/) `v18+`
-- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
-- [PostgreSQL](https://www.postgresql.org/) `v14+`
-- [Git](https://git-scm.com/)
- 
-### 1. Clone o Repositório
- 
-```bash
-git clone https://github.com/<org>/plataforma-trilhas.git
-cd plataforma-trilhas
-```
- 
-### 2. Configuração do Banco de Dados
- 
-Crie o banco de dados PostgreSQL e configure as variáveis de ambiente:
- 
-```bash
-# No PostgreSQL
-CREATE DATABASE trilhas_db;
-```
- 
-```bash
-# No diretório backend, crie o arquivo .env
-cp backend/.env.example backend/.env
-```
- 
-Edite o `backend/.env` com suas credenciais:
- 
-```env
-DB_HOST=localhost
-DB_PORT=5432
-DB_USERNAME=postgres
-DB_PASSWORD=sua_senha
-DB_NAME=trilhas_db
-JWT_SECRET=sua_chave_secreta
-```
- 
-### 3. Executando o Backend (NestJS)
- 
-```bash
-# Acesse o diretório do backend
-cd backend
- 
-# Instale as dependências
-npm install
- 
-# Execute as migrations do banco de dados
-npm run migration:run
- 
-# Inicie o servidor em modo de desenvolvimento
-npm run start:dev
-```
- 
-> O servidor backend estará disponível em `http://localhost:3000`
- 
-### 4. Executando o Frontend (React + Vite)
- 
-```bash
-# Em um novo terminal, acesse o diretório do frontend
-cd frontend
- 
-# Instale as dependências
-npm install
- 
-# Configure as variáveis de ambiente
-cp .env.example .env
-# Edite .env e defina VITE_API_URL=http://localhost:3000
- 
-# Inicie o servidor de desenvolvimento
-npm run dev
-```
- 
-> O frontend estará disponível em `http://localhost:5173`
- 
-### 5. Verificando a Instalação
- 
-Após ambos os serviços estarem em execução, acesse `http://localhost:5173` no navegador. Você deverá ver a tela inicial da plataforma com o feed de trilhas.
- 
-<details>
-<summary>Opcão alternativa: Executando com Docker Compose</summary>
- 
-```bash
-# Na raiz do projeto
-docker-compose up --build
-```
- 
-Este comando sobe automaticamente o PostgreSQL, o backend e o frontend em contêineres isolados.
- 
-</details>
+
  
 
 ## Integrantes
@@ -220,6 +125,7 @@ Este comando sobe automaticamente o PostgreSQL, o backend e o frontend em contê
 | :----- | :--------- | :------------------------------------------ | :-------------------------------------------------- | :------------------------------------------------------ |
 | 1.0 | 31/03/2026 | Criação do README | [Antonio Carvalho](https://github.com/antonioscarvalho) |  |
 | 1.1 | 03/04/2026 | Refatoração do README com novo guia de execução |  [Antonio Carvalho](https://github.com/antonioscarvalho)  | |
+| 1.2 | 22/05/2026 | Retira guia de execução |  [Vitor Hoffmann](https://github.com/vitor-hoffmann)  | |
  
 ---
  
