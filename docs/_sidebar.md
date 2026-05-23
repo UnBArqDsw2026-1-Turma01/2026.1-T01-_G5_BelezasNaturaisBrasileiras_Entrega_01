@@ -57,3 +57,4 @@
   - [3.5. Iniciativas Extras](PadroesDeProjeto/3.5.IniciativasExtras.md)
     - [3.5.1. Frontend](PadroesDeProjeto/IniciativasExtras/3.5.1.Frontend.md)
     - [3.5.2. Testes](PadroesDeProjeto/IniciativasExtras/3.5.2.Testes.md)
+  - [3.6. Vídeo de Demonstração](PadroesDeProjeto/3.6.VideoDemonstracao.md)
